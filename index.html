@@ -7,23 +7,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="SnakeGame/css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  
-<div class="wrap">
+<div class="wrap" id="wrap">
   <div class="hud">
     <div class="stat"><span class="lab">SCORE</span><span class="val" id="score">0</span></div>
     <div class="title">NEON&nbsp;SNAKE</div>
     <div class="stat hi" style="text-align:right"><span class="lab">BEST</span><span class="val" id="best">0</span></div>
   </div>
 
-  <div class="stage">
-    <canvas id="game" width="600" height="600"></canvas>
+  <div class="stage" id="stage">
+    <canvas id="game"></canvas>
+
+    <div class="fx" id="fxBadge"></div>
 
     <div class="tools">
       <div class="tool" id="muteBtn" title="Sound">🔊</div>
       <div class="tool" id="pauseBtn" title="Pause">⏸</div>
+      <div class="tool" id="fsBtn" title="Fullscreen">⛶</div>
     </div>
 
     <!-- START -->
@@ -35,8 +37,13 @@
         <div class="mode on" data-mode="normal">NORMAL</div>
         <div class="mode" data-mode="insane">INSANE</div>
       </div>
+      <div class="legend">
+        <span><i class="dot gold"></i>+5</span>
+        <span><i class="dot cyan"></i>SLOW-MO</span>
+        <span><i class="dot purple"></i>GHOST</span>
+      </div>
       <button class="play" id="startBtn">▶ PLAY</button>
-      <div class="hint"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> or <kbd>W A S D</kbd> &nbsp;·&nbsp; <kbd>Space</kbd> pause</div>
+      <div class="hint"><kbd>↑↓←→</kbd>/<kbd>WASD</kbd> · <kbd>Space</kbd> pause · <kbd>F</kbd> fullscreen</div>
     </div>
 
     <!-- PAUSE -->
@@ -64,7 +71,6 @@
   </div>
 </div>
 
-<script src="SnakeGame/js/index.js"></script>
-  
+<script src="js/index.js"></script>
 </body>
 </html>
