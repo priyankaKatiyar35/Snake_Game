@@ -1,4 +1,136 @@
-@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
+:root{
+  --bg:#070710;
+  --panel:rgba(12,12,26,.82);
+  --green:#39ff14;
+  --cyan:#00f0ff;
+  --pink:#ff2079;
+  --purple:#b026ff;
+  --gold:#ffd54a;
+  --ink:#e8e8ff;
+  --dim:#7a7aa8;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  background:
+    radial-gradient(1200px 700px at 50% -10%, rgba(176,38,255,.18), transparent 60%),
+    radial-gradient(900px 600px at 90% 110%, rgba(0,240,255,.12), transparent 55%),
+    var(--bg);
+  color:var(--ink);
+  font-family:'VT323',monospace;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;overflow:hidden;
+}
+/* moving grid floor */
+body::before{
+  content:"";position:fixed;inset:-50%;
+  background-image:
+    linear-gradient(rgba(0,240,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,240,255,.06) 1px,transparent 1px);
+  background-size:42px 42px;
+  transform:perspective(600px) rotateX(62deg) translateY(0);
+  animation:floor 16s linear infinite;pointer-events:none;
+}
+@keyframes floor{to{background-position:0 420px}}
+/* scanlines */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px);
+  mix-blend-mode:multiply;
+}
+
+.wrap{position:relative;width:min(94vmin,560px)}
+
+.hud{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:12px;gap:10px;
+}
+.stat{line-height:1}
+.stat .lab{
+  font-family:'Press Start 2P';font-size:8px;letter-spacing:1px;
+  color:var(--dim);display:block;margin-bottom:6px;
+}
+.stat .val{font-size:34px;color:var(--cyan);text-shadow:0 0 12px rgba(0,240,255,.6)}
+.stat.hi .val{color:var(--gold);text-shadow:0 0 12px rgba(255,213,74,.6)}
+.title{
+  font-family:'Press Start 2P';font-size:13px;text-align:center;
+  color:var(--green);text-shadow:0 0 14px rgba(57,255,20,.7);flex:1;align-self:center;
+}
+
+.stage{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:2px solid rgba(0,240,255,.4);
+  box-shadow:0 0 0 1px rgba(176,38,255,.3),
+             0 0 40px rgba(0,240,255,.25),
+             0 24px 60px rgba(0,0,0,.6),
+             inset 0 0 60px rgba(0,0,0,.6);
+  background:rgba(4,4,12,.6);
+}
+canvas{display:block;width:100%;height:auto}
+
+/* overlays */
+.screen{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:18px;
+  background:radial-gradient(circle at 50% 40%,rgba(8,8,20,.55),rgba(4,4,10,.92));
+  backdrop-filter:blur(3px);z-index:20;padding:24px;
+}
+.screen.hide{display:none}
+.big{
+  font-family:'Press Start 2P';color:var(--green);
+  text-shadow:0 0 18px rgba(57,255,20,.8),0 0 40px rgba(57,255,20,.4);
+  line-height:1.5;font-size:clamp(18px,6vmin,30px);
+}
+.big .s2{color:var(--pink);text-shadow:0 0 18px rgba(255,32,121,.8)}
+.over .big{color:var(--pink);text-shadow:0 0 18px rgba(255,32,121,.8)}
+.sub{font-size:24px;color:var(--ink)}
+.sub b{color:var(--cyan)}
+.modes{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.mode{
+  font-family:'Press Start 2P';font-size:9px;cursor:pointer;
+  padding:12px 14px;border-radius:10px;color:var(--ink);
+  background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.12);
+  transition:.15s;
+}
+.mode:hover{transform:translateY(-2px)}
+.mode.on{border-color:var(--green);color:var(--green);
+  box-shadow:0 0 18px rgba(57,255,20,.35);background:rgba(57,255,20,.08)}
+.play{
+  font-family:'Press Start 2P';font-size:12px;cursor:pointer;color:#06121a;
+  padding:16px 26px;border:none;border-radius:12px;
+  background:linear-gradient(180deg,var(--cyan),#00b3c4);
+  box-shadow:0 0 26px rgba(0,240,255,.6),0 8px 0 #0a6f7c;
+  transition:.1s;
+}
+.play:active{transform:translateY(4px);box-shadow:0 0 26px rgba(0,240,255,.6),0 4px 0 #0a6f7c}
+.hint{font-size:18px;color:var(--dim)}
+kbd{
+  font-family:'VT323';background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  border-radius:5px;padding:0 7px;color:var(--ink);font-size:17px
+}
+
+/* top-right controls */
+.tools{position:absolute;top:-2px;right:-2px;display:flex;gap:8px;z-index:30}
+.tool{
+  width:38px;height:38px;border-radius:10px;cursor:pointer;
+  background:rgba(12,12,26,.8);border:1px solid rgba(0,240,255,.3);
+  color:var(--cyan);font-size:20px;display:flex;align-items:center;justify-content:center;
+}
+.tool:active{transform:scale(.92)}
+
+/* mobile d-pad */
+.pad{display:none;margin-top:16px;grid-template-columns:repeat(3,64px);
+     grid-template-rows:repeat(2,64px);gap:8px;justify-content:center}
+.pad button{
+  font-family:'Press Start 2P';font-size:16px;border-radius:14px;cursor:pointer;
+  background:rgba(12,12,26,.85);border:2px solid rgba(0,240,255,.35);color:var(--cyan);
+}
+.pad button:active{background:rgba(0,240,255,.18)}
+.pad .up{grid-column:2;grid-row:1}
+.pad .left{grid-column:1;grid-row:2}
+.pad .down{grid-column:2;grid-row:2}
+.pad .right{grid-column:3;grid-row:2}
+@media (hover:none) and (pointer:coarse){.pad{display:grid}.hint{display:none}}@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
 *{
     padding: 0;
     margin: 0px;
