@@ -1,19 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>NEON SNAKE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="body">
-        <div id="scoreBox">Score: 0</div>
-        <div id="hiscoreBox">HiScore: 0</div>
-        <div id="board"></div>
-        <img src="css/img.png" alt="">
-         </div>
-</body>
+<div class="wrap">
+  <div class="hud">
+    <div class="stat"><span class="lab">SCORE</span><span class="val" id="score">0</span></div>
+    <div class="title">NEON&nbsp;SNAKE</div>
+    <div class="stat hi" style="text-align:right"><span class="lab">BEST</span><span class="val" id="best">0</span></div>
+  </div>
+
+  <div class="stage">
+    <canvas id="game" width="600" height="600"></canvas>
+
+    <div class="tools">
+      <div class="tool" id="muteBtn" title="Sound">🔊</div>
+      <div class="tool" id="pauseBtn" title="Pause">⏸</div>
+    </div>
+
+    <!-- START -->
+    <div class="screen" id="startScreen">
+      <div class="big">NEON<br><span class="s2">SNAKE</span></div>
+      <div class="hint">Choose your speed</div>
+      <div class="modes" id="modes">
+        <div class="mode" data-mode="chill">CHILL</div>
+        <div class="mode on" data-mode="normal">NORMAL</div>
+        <div class="mode" data-mode="insane">INSANE</div>
+      </div>
+      <button class="play" id="startBtn">▶ PLAY</button>
+      <div class="hint"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> or <kbd>W A S D</kbd> &nbsp;·&nbsp; <kbd>Space</kbd> pause</div>
+    </div>
+
+    <!-- PAUSE -->
+    <div class="screen hide" id="pauseScreen">
+      <div class="big" style="color:var(--cyan);text-shadow:0 0 18px rgba(0,240,255,.7)">PAUSED</div>
+      <button class="play" id="resumeBtn">▶ RESUME</button>
+      <div class="hint">Press <kbd>Space</kbd> to resume</div>
+    </div>
+
+    <!-- GAME OVER -->
+    <div class="screen over hide" id="overScreen">
+      <div class="big">GAME OVER</div>
+      <div class="sub">Score <b id="finalScore">0</b></div>
+      <div class="sub" id="newBest" style="display:none;color:var(--gold)">★ NEW BEST! ★</div>
+      <button class="play" id="retryBtn">⟳ PLAY AGAIN</button>
+      <div class="hint">Press <kbd>Enter</kbd></div>
+    </div>
+  </div>
+
+  <div class="pad" id="pad">
+    <button class="up"    data-dir="up">▲</button>
+    <button class="left"  data-dir="left">◀</button>
+    <button class="down"  data-dir="down">▼</button>
+    <button class="right" data-dir="right">▶</button>
+  </div>
+</div>
+
 <script src="js/index.js"></script>
+</body>
 </html>
